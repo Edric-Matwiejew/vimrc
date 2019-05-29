@@ -4,7 +4,7 @@
 " (____)(____/  (____/  (_)\__/ (__)\_)(_/(__\_) \___)
 "
 " This is my .vimrc, there are many like it, but this
-" one is mine,
+" one is mine.
 
 " VIM INITIALISATION
 
