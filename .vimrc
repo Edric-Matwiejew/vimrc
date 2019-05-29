@@ -40,9 +40,9 @@ endfunc
 call plug#begin('~/.vim/plugged')
 
 	"Edit Latex documents with live preview.
-    Plug 'lervag/vimtex'
+  	Plug 'lervag/vimtex'
 	"Indentation markings.
-    Plug 'Yggdroot/indentLine'
+    	Plug 'Yggdroot/indentLine'
 	"Snazzy colorscheme
 	Plug 'crusoexia/vim-monokai'
 	"i3-wm syntax highlighting
