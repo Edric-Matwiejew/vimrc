@@ -1,11 +1,18 @@
-""""""""""""""""""""""""""""
-"       Ed's .vimrc         "
-" """""""""""""""""""""""""""
+"  ____  ____  _ ____      _  _  __  _  _  ____   ___ 
+" (  __)(    \(// ___)    / )( \(  )( \/ )(  _ \ / __)
+"  ) _)  ) D (  \___ \   _\ \/ / )( / \/ \ )   /( (__ 
+" (____)(____/  (____/  (_)\__/ (__)\_)(_/(__\_) \___)
+"
+" This is my .vimrc, there are many like it, but this
+" one is mine,
 
-""" VIM BACKGROUND BEHAVIOUR """
+" VIM INITIALISATION
 
-filetype plugin on						" check file type on opening file, allows for filetype specific actions
-set spellfile=~/en.utf-8.add	" set location of custom spellings dictionary.
+" check file type on opening file, allows for filetype specific actions
+filetype plugin on
+
+" set location of custom spellings dictionary.
+set spellfile=~/en.utf-8.add
 
 " If plugin manager vim-plug is not installed, download and install it.
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -14,69 +21,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-""" INSTALLED PLUGINS. """
-call plug#begin('~/.vim/plugged')
+" FUNCTIONS
 
-    Plug 'lervag/vimtex'        " editing of latex documents with a live preview
-    Plug 'Yggdroot/indentLine'  " indentation markings
-	Plug 'crusoexia/vim-monokai'
-	Plug 'PotatoesMaster/i3-vim-syntax'
-	Plug 'jreybert/vimagit'
-	Plug 'itchyny/lightline.vim'
-	Plug 'bronson/vim-trailing-whitespace'
-	Plug 'sickill/vim-pasta' "create + paste lines with correct indentation.
-	"Plug 'vim-syntastic/syntastic' "syntax checking in vim, need to configure
-	Plug 'ervandew/supertab' "context-aware auto-completion mapped to tab, working in insert mode
-	Plug 'ctrlpvim/ctrlp.vim' "fuzzy file search
-
-call plug#end()
-
-""" VIM UI """
-colorscheme monokai             " colourscheme
-set t_Co=256					" needed for monokai styke colourschemes
-let g:monokai_term_italic = 1	" enable italics with monokai in gui
-let g:monokai_gui_italic = 1	" enable italics with monokai in gui
-set number                      " show line numbers
-set linebreak					" wrap with whole words
-autocmd FileType fortran set colorcolumn=133             " place right hand ruler at the 133rd column
-syntax enable                   " enable syntax highlighting
-set showcmd                     " show command in bottom bar
-set wildmenu                    " visual autocomplete for command menu
-set showmatch                   " highlight matching parenthesis
-autocmd FileType fortran set wrap!                       " turn off word-wrap
-set number relativenumber		" actual number for active line, other numbers relative to that line
-
-""" LIGHTLINE STATUSBAR """
-set laststatus=2
-set noshowmode
-
-""" SPACES TABS AND INDENTATION """
-set tabstop=4							" the width of a TAB is set to 4
-set shiftwidth=4						" indents have a width of 4
-set softtabstop=4						" number of columns for a TAB
-autocmd FileType fortran set expandtab    " expand tabs to spaces if working in fortran
-"set autoindent							" copies indentation from previous line
-set smartindent							" adds indentation in some(?) cases
-
-""" VIM FILE EXPLORER """
-let g:netrw_browse_split = 4    " open files from filer explorer in active window
-let g:netrw_winsize = 25        " explorer takes up 25 % of the displat
-let g:netrw_liststyle = 3       " defualt view type is tree list view
-let g:netrw_banner = 0          " hide directory banner
-
-"" FOLDING ""
-set foldenable          " enable folding
-set foldlevelstart=0    " close most folds by default
-set foldmethod=indent   " fold based on indent
-
-""" VIMTEX SETTINGS """
-let g:vimtex_view_general_viewer = 'zathura'	" setting the .pdf previewer.
-let g:tex_conceal = ""							" display all typed code in full.
-
-""" GLOBAL CUSTOM KEY MAPPINGS """
-map <leader>o :setlocal spell! spelllang=en_au<CR>
-" press <Space><Space> to move to + delete next <++>
-inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
 " toggle mouse support on off
 function! ToggleMouse()
     " check if mouse is enabled
@@ -88,39 +34,94 @@ function! ToggleMouse()
         set mouse=a
     endif
 endfunc
+
+" PLUGINS
+
+call plug#begin('~/.vim/plugged')
+
+	"Edit Latex documents with live preview.
+    Plug 'lervag/vimtex'
+	"Indentation markings.
+    Plug 'Yggdroot/indentLine'
+	"Snazzy colorscheme
+	Plug 'crusoexia/vim-monokai'
+	"i3-wm syntax highlighting
+	Plug 'PotatoesMaster/i3-vim-syntax'
+	"Git management from within Vim.
+	Plug 'jreybert/vimagit'
+	"Lightline status bar.
+	Plug 'itchyny/lightline.vim'
+	"Function to delete trailing whitespace.
+	Plug 'bronson/vim-trailing-whitespace'
+	"List defined variables and functions.
+	Plug 'https://github.com/majutsushi/tagbar'
+	"Create and paste lines with context sensitive indentaion.
+	Plug 'sickill/vim-pasta'
+	"Fuzzy search
+	Plug 'ctrlpvim/ctrlp.vim'
+
+call plug#end()
+
+" PLUGIN SETTINGS
+
+" vimtex
+let g:vimtex_view_general_viewer = 'zathura'	" setting the .pdf previewer.
+let g:tex_conceal = ""							" display all typed code in full.
+
+" lightline statusbar
+set laststatus=2
+set noshowmode
+
+" VIM SETTINGS
+
+colorscheme monokai             " colourscheme
+set t_Co=256					" needed for monokai styke colourschemes
+let g:monokai_term_italic = 1	" enable italics with monokai in gui
+let g:monokai_gui_italic = 1	" enable italics with monokai in gui
+set number                      " show line numbers
+set number relativenumber		" actual number for active line, other numbers relative to that line
+set linebreak					" wrap with whole words
+syntax enable                   " enable syntax highlighting
+set showcmd                     " show command in bottom bar
+set wildmenu                    " visual autocomplete for command menu
+set showmatch                   " highlight matching parenthesis
+
+" Spaces, tabs and indentation
+set tabstop=4					" the width of a TAB is set to 4
+set shiftwidth=4				" indents have a width of 4
+set softtabstop=4				" number of columns for a TAB
+set smartindent					" context sensitive indentaion
+
+" Vim file explorer
+let g:netrw_browse_split = 4    " open files from filer explorer in active window
+let g:netrw_winsize = 25        " explorer takes up 25 % of the displat
+let g:netrw_liststyle = 3       " defualt view type is tree list view
+let g:netrw_banner = 0          " hide directory banner
+
+" folding behaviour
+set foldenable          " enable folding
+set foldlevelstart=3    " close folds with depth greater than 3 on opening
+set foldmethod=indent   " fold based on indent
+
+" CUSTOM KEY MAPPINGS
+
+" Spellcheck on
+map <leader>o :setlocal spell! spelllang=en_au<CR>
+
 " call mouse toggle function
 map <leader>m :call ToggleMouse()<CR>
-"" FORTRAN CUSTOM KEY MAPPINGS """
-autocmd FileType fortran inoremap ;d do<Space><--><ESC>_oenddo<Esc>/<--><Enter>"_c4l
-autocmd FileType fortran inoremap ;i if<Space>(<-->)<Space>then<Esc>_oendif<Esc>/<--><Enter>"_c4l
 
-"" LATEX CUSTOM KEY MAPPINGS ""
-" create equation environment
-autocmd FileType tex inoremap ;e \begin{equation}<Return>\label{<-->}<Return><++><Return>\end{equation}<++><Esc>/<--><Enter>"_c4l
-" math typsetting
-autocmd FileType tex inoremap ;m \mathcal{<-->}<++><Esc>/<--><Enter>"_c4l
-autocmd FileType tex inoremap ;h \hat{<-->}<++><Esc>/<--><Enter>"_c4l
-autocmd FileType tex inoremap ;b \mathbf{<-->}<++><Esc>/<--><Enter>"_c4l
-autocmd FileType tex inoremap ;v \vec{<-->}<++><Esc>/<--><Enter>"_c4l
-autocmd FileType tex inoremap ;tl \tilde{<-->}<++><Esc>/<--><Enter>"_c4l
-autocmd FileType tex inoremap ;. \ket{<-->}<++><Esc>/<--><Enter>"_c4l
-autocmd FileType tex inoremap ;, \bra{<-->}<++><Esc>/<--><Enter>"_c4l
-autocmd FileType tex inoremap ;t \textrm{<-->}<++><Esc>/<--><Enter>"_c4l
-" create numbered and labelled equation
-
-""" Map arrow keys to no operation
+" Map arrow keys to no operation!
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" LANGUAGE SPECIFIC SETTINGS
 
-""" Syntastic Settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-"let g:syntastic_fortran_compiler = 'ifort' does not appeaer to function
+"Fortran
+autocmd FileType fortran set colorcolumn=80 " place right hand ruler at the 80th column
+autocmd FileType fortran set wrap!          " turn off word-wrap
+autocmd FileType fortran set expandtab		" expand tabs to spaces if working in fortran
+
+
