@@ -1,6 +1,6 @@
-"  ____  ____  _ ____      _  _  __  _  _  ____   ___ 
+"  ____  ____  _ ____      _  _  __  _  _  ____   ___
 " (  __)(    \(// ___)    / )( \(  )( \/ )(  _ \ / __)
-"  ) _)  ) D (  \___ \   _\ \/ / )( / \/ \ )   /( (__ 
+"  ) _)  ) D (  \___ \   _\ \/ / )( / \/ \ )   /( (__
 " (____)(____/  (____/  (_)\__/ (__)\_)(_/(__\_) \___)
 "
 " This is my .vimrc, there are many like it, but this
@@ -10,9 +10,10 @@
 
 " check file type on opening file, allows for filetype specific actions
 filetype plugin on
-
 " set location of custom spellings dictionary.
 set spellfile=~/en.utf-8.add
+" directory of active window is set to the directory of the opened buffer
+autocmd BufEnter * silent! lcd %:p:h
 
 " If plugin manager vim-plug is not installed, download and install it.
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -42,13 +43,11 @@ call plug#begin('~/.vim/plugged')
 	"Edit Latex documents with live preview.
   	Plug 'lervag/vimtex'
 	"Indentation markings.
-    	Plug 'Yggdroot/indentLine'
+   	Plug 'Yggdroot/indentLine'
 	"Snazzy colorscheme
 	Plug 'crusoexia/vim-monokai'
 	"i3-wm syntax highlighting
 	Plug 'PotatoesMaster/i3-vim-syntax'
-	"Git management from within Vim.
-	Plug 'jreybert/vimagit'
 	"Lightline status bar.
 	Plug 'itchyny/lightline.vim'
 	"Function to delete trailing whitespace.
@@ -59,6 +58,11 @@ call plug#begin('~/.vim/plugged')
 	Plug 'sickill/vim-pasta'
 	"Fuzzy search
 	Plug 'ctrlpvim/ctrlp.vim'
+	" autocomplete quotes, brakets, braces
+	Plug 'https://github.com/Raimondi/delimitMate'
+	" syntax checking
+	" Plug 'https://github.com/vim-syntastic/syntastic'
+	Plug 'https://github.com/ajh17/VimCompletesMe'
 
 call plug#end()
 
@@ -72,6 +76,18 @@ let g:tex_conceal = ""							" display all typed code in full.
 set laststatus=2
 set noshowmode
 
+" syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_fortran_compiler='gfortran'
+"let g:syntastic_fortran_remove_include_errors=1
+
 " VIM SETTINGS
 
 colorscheme monokai             " colourscheme
@@ -84,6 +100,7 @@ set linebreak					" wrap with whole words
 syntax enable                   " enable syntax highlighting
 set showcmd                     " show command in bottom bar
 set wildmenu                    " visual autocomplete for command menu
+set splitbelow					" splits will open in a bottown window
 set showmatch                   " highlight matching parenthesis
 
 " Spaces, tabs and indentation
@@ -100,16 +117,26 @@ let g:netrw_banner = 0          " hide directory banner
 
 " folding behaviour
 set foldenable          " enable folding
-set foldlevelstart=3    " close folds with depth greater than 3 on opening
-set foldmethod=indent   " fold based on indent
+set foldlevelstart=99   " should start with all folds open
+set foldmethod=indent   " fold based on syntax
+
+" Vim terminal
+set termsize=10x0
 
 " CUSTOM KEY MAPPINGS
 
 " Spellcheck on
 map <leader>o :setlocal spell! spelllang=en_au<CR>
 
+" open splitscreen terminal 
+map <F9> <CR>:terminal<CR>
+
+
 " call mouse toggle function
 map <leader>m :call ToggleMouse()<CR>
+
+" toggle taglist
+nmap <F8> :TagbarToggle<CR>
 
 " Map arrow keys to no operation!
 noremap <Up> <Nop>
@@ -123,5 +150,3 @@ noremap <Right> <Nop>
 autocmd FileType fortran set colorcolumn=80 " place right hand ruler at the 80th column
 autocmd FileType fortran set wrap!          " turn off word-wrap
 autocmd FileType fortran set expandtab		" expand tabs to spaces if working in fortran
-
-
