@@ -60,9 +60,10 @@ call plug#begin('~/.vim/plugged')
 	Plug 'ctrlpvim/ctrlp.vim'
 	" autocomplete quotes, brakets, braces
 	Plug 'https://github.com/Raimondi/delimitMate'
-	" syntax checking
-	" Plug 'https://github.com/vim-syntastic/syntastic'
+	"auto complete?
 	Plug 'https://github.com/ajh17/VimCompletesMe'
+	"diff between sections of the same document
+	Plug 'https://github.com/AndrewRadev/linediff.vim'
 
 call plug#end()
 
